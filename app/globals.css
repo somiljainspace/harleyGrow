@@ -1,0 +1,308 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Properties */
+:root {
+  --background: #f8f9fa; /* Example: Light gray for white-like background */
+  --foreground: #000000; /* Black text for contrast */
+  --navbar-bg: #1a1a1a; /* Darker navbar background */
+  --navbar-text: #e0e0e0; /* Light gray text for navbar */
+  --button-bg: #004d00; /* Dark green for button */
+  --button-bg-hover: #006600; /* Slightly lighter green on hover */
+  --teal: #00cccc; /* Teal color */
+  --cyan: #00d4ff; /* Cyan color */
+  --vibrant: #00ffff; /* Vibrant color */
+  --dark-green: #2e7d32; /* Dark green */
+  --light-green: #66bb6a; /* Light green */
+  --dark-gray: #f8f9fa; /* Dark gray */
+  --light-gray: #eaeaea; /* Light gray */
+}
+
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: var(--foreground); /* White text */
+  background: var(--background); /* Black background */
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 80px; /* To ensure content is not hidden under the navbar */
+}
+
+/* Navbar Styles */
+.navbar {
+  @apply flex items-center justify-between p-5 fixed top-0 left-0 w-full z-50;
+  background-color: var(--navbar-bg); /* Darker background for navbar */
+}
+
+.logo {
+  @apply cursor-pointer; /* Make the logo clickable */
+}
+
+/* Navigation Links */
+.nav-links {
+  @apply flex list-none gap-8; /* Flex container for links with gap */
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  @apply text-lg; /* Larger text for navigation */
+}
+
+.nav-links li a {
+  @apply no-underline hover:underline; /* Links with hover underline effect */
+  color: var(--navbar-text); /* Light gray text for navbar links */
+}
+
+/* Button Styles */
+.button {
+  @apply flex items-center justify-center gap-2 rounded-full transition-all duration-200 ease-in-out;
+}
+
+.button-primary {
+  @apply text-white font-semibold py-2 px-4 shadow-md;
+  background-color: var(--button-bg); /* Dark green button */
+}
+
+.button-primary:hover {
+  background-color: var(--button-bg-hover); /* Lighter green on hover */
+}
+
+.button:hover {
+  @apply shadow-lg; /* Hover effect */
+}
+
+.button:active {
+  @apply transform scale-95; /* Slightly reduce size on click */
+}
+
+/* Problem Container Styles */
+.problem-container {
+  padding: 5rem 1.5rem;
+  text-align: center;
+  background-color: var(--dark-gray);
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 0 1.5rem;
+}
+
+.problem-card {
+  padding: 1.5rem;
+  background-color: var(--dark-gray);
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.problem-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+  border-color: var(--teal); /* Teal border on hover */
+}
+
+.problem-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0.8rem;
+}
+
+.problem-title {
+  font-size: 1.4rem;
+  color: var(--teal); /* Teal color for titles */
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.problem-description {
+  color: var(--light-gray); /* Light gray for description text */
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Objectives Section Styles */
+.objectives-section {
+  padding: 2rem;
+  background-color: var(--dark-gray);
+  color: var(--foreground);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--vibrant); /* Vibrant color for the title */
+}
+
+.objectives-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.objective-card {
+  background-color: var(--dark-gray);
+  padding: 1.5rem;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.objective-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.objective-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--vibrant); /* Vibrant color for titles */
+}
+
+.objective-description {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+/* Solution Component Styles */
+.solution-container {
+  background-color: var(--dark-gray);
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--foreground);
+}
+
+.solution-heading {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: var(--light-green);
+  margin-bottom: 30px;
+  animation: fadeIn 1s ease-in;
+}
+
+.columns-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.column {
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  padding: 20px;
+  margin: 10px;
+  background: linear-gradient(145deg, var(--dark-green), var(--light-green));
+  border-radius: 12px;
+  color: var(--foreground);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.column:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.column h3 {
+  font-size: 1.5em;
+  margin-bottom: 5px;
+  color: var(--foreground);
+  font-weight: bold;
+}
+
+.column-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #ffeb3b;
+  margin: 10px 0;
+}
+
+.images-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.images-container img {
+  width: 150px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s;
+}
+
+.images-container img:hover {
+  transform: scale(1.05);
+}
+
+/* Button Styles */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.custom-button {
+  padding: 10px 20px;
+  background: var(--light-green);
+  color: var(--foreground);
+  font-size: 1em;
+  border-radius: 8px;
+  transition: transform 0.3s, background-color 0.3s;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.custom-button:hover {
+  background-color: #66bb6a;
+  transform: translateY(-5px);
+}
+
+/* Team Component Styles */
+.team-container {
+  padding: 60px 20px;
+  background-color: var(--dark-gray);
+  color: var(--foreground);
+  text-align: center;
+}
+
+.team-heading {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 40px;
+  color: var(--light-green);
+  animation: fadeIn 1s ease-in;
+}
+
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+.team-card {
+  background: linear-gradient(145deg, var(--dark-green), var(--light-green));
+  border-radius: 12px;
+  padding: 20px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Added missing closing parenthesis and semicolon */
+}
