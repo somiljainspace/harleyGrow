@@ -2,7 +2,7 @@ import React from "react";
 
 const GetInTouchButton = () => {
   // Replace with your Google Form link
-  const googleFormLink = "https://forms.gle/your-google-form-link";
+  const googleFormLink = "https://docs.google.com/forms/d/e/1FAIpQLSfYiF-VrVBnYTCH5wbObdAOD2Yhn-pKZ5tbmugswIUbqngWUg/viewform?usp=dialog";
 
   return (
     <a

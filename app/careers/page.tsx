@@ -9,17 +9,17 @@ const Careers: React.FC = () => {
             <section>
                 <h2>Open Positions</h2>
                 <ul>
-                    <li>
+                    <li key="software-engineer">
                         <h3>Software Engineer</h3>
                         <p>We are looking for a skilled software engineer to join our team.</p>
                         <button>Apply Now</button>
                     </li>
-                    <li>
+                    <li key="product-manager">
                         <h3>Product Manager</h3>
                         <p>We need a product manager to help us define and deliver our product roadmap.</p>
                         <button>Apply Now</button>
                     </li>
-                    <li>
+                    <li key="ux-designer">
                         <h3>UX Designer</h3>
                         <p>Join our design team to create user-friendly interfaces for our products.</p>
                         <button>Apply Now</button>
@@ -30,10 +30,7 @@ const Careers: React.FC = () => {
             <section>
                 <h2>Why Work With Us?</h2>
                 <ul>
-                    <li>Competitive salary and benefits</li>
-                    <li>Flexible working hours</li>
-                    <li>Opportunities for growth and development</li>
-                    <li>Collaborative and inclusive work environment</li>
+                    {/* Add more list items here */}
                 </ul>
             </section>
         </div>

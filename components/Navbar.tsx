@@ -19,19 +19,19 @@ const Navbar = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY && currentScrollY > 50) {
-      setIsVisible(false);
-    } else {
-      setIsVisible(true);
-    }
-    setLastScrollY(currentScrollY);
-  };
-
   useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
     const debounceScroll = () => {
-      let timer;
+      let timer: NodeJS.Timeout;
       return () => {
         clearTimeout(timer);
         timer = setTimeout(() => {
