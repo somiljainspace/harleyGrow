@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const AboutPage: React.FC = () => {
   return (
@@ -16,7 +17,7 @@ const AboutPage: React.FC = () => {
           It all began in 2022, when we set out to solve farming degradation. Over the years, we have achieved milestones that have shaped who we are today.
         </p>
         <div className="mt-8 flex justify-center">
-          <img
+          <Image
             src="/images/timeline.png"
             alt="Our Journey Timeline"
             className="rounded-lg shadow-lg max-w-full h-auto"
@@ -64,7 +65,7 @@ const AboutPage: React.FC = () => {
         <h2 className="text-3xl font-semibold text-center">Meet Our Team</h2>
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="text-center">
-            <img
+            <Image
               src="/images/team-member-1.jpg"
               alt="Team Member 1"
               className="w-24 h-24 mx-auto rounded-full"
@@ -73,7 +74,7 @@ const AboutPage: React.FC = () => {
             <p className="text-gray-600">CEO</p>
           </div>
           <div className="text-center">
-            <img
+            <Image
               src="/images/team-member-2.jpg"
               alt="Team Member 2"
               className="w-24 h-24 mx-auto rounded-full"

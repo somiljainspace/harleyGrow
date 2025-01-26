@@ -1,37 +1,18 @@
-import React from "react";
+import Image from 'next/image';
 
 interface ButtonProps {
-  type?: "button" | "submit" | "reset"; // Made optional with a default
+  type: 'button' | 'submit' | 'reset';
   title: string;
-  variant?: string; // Optional for class customization
-  icon?: string; // Icon made optional
-  onClick?: () => void; // Optional onClick handler
-  disabled?: boolean; // Added support for disabled state
+  variant: string;
+  icon?: string;
+  onClick: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({
-  type = "button",
-  title,
-  variant = "px-4 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 transition-colors",
-  icon,
-  onClick,
-  disabled = false,
-}) => {
+const Button = ({ type, title, variant, icon, onClick }: ButtonProps) => {
   return (
-    <button
-      type={type}
-      className={`${variant} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {icon && (
-        <img
-          src={icon}
-          alt={`${title} icon`}
-          className="inline-block w-4 h-4 mr-2 align-middle"
-        />
-      )}
-      <span>{title}</span>
+    <button type={type} className={`btn ${variant}`} onClick={onClick}>
+      {icon && <Image src={icon} alt={title} width={20} height={20} />}
+      {title}
     </button>
   );
 };

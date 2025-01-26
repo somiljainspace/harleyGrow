@@ -1,3 +1,4 @@
+// ...existing code...
 "use client";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,8 +7,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { NAV_LINKS } from "@/constants";
 import Button from "./Button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+
+// Type-safe debounce implementation
+const debounce = <T extends (...args: unknown[]) => void>(func: T, delay: number): (...args: Parameters<T>) => void => {
+  let timer: NodeJS.Timeout;
+  return (...args: Parameters<T>) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => func(...args), delay);
+  };
+};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,31 +29,22 @@ const Navbar = () => {
     setIsOpen((prev) => !prev);
   };
 
+  // Memoized handleScroll function to avoid unnecessary re-renders
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY && currentScrollY > 50) {
+      setIsVisible(false);
+    } else {
+      setIsVisible(true);
+    }
+    setLastScrollY(currentScrollY);
+  }, [lastScrollY]);
+
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY && currentScrollY > 50) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-      setLastScrollY(currentScrollY);
-    };
-
-    const debounceScroll = () => {
-      let timer: NodeJS.Timeout;
-      return () => {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-          handleScroll();
-        }, 100);
-      };
-    };
-
-    const debouncedHandleScroll = debounceScroll();
+    const debouncedHandleScroll = debounce(handleScroll, 100);
     window.addEventListener("scroll", debouncedHandleScroll);
     return () => window.removeEventListener("scroll", debouncedHandleScroll);
-  }, [lastScrollY]);
+  }, [handleScroll]);
 
   return (
     <nav
@@ -58,7 +59,7 @@ const Navbar = () => {
           className="logo"
           width={100}
           height={50}
-          priority={false}
+          priority={true}
         />
       </Link>
 
@@ -66,7 +67,7 @@ const Navbar = () => {
         <button
           onClick={toggleMenu}
           className="focus:outline-none"
-          aria-expanded={isOpen}
+          aria-expanded={isOpen ? "true" : "false"}
           aria-controls="mobile-menu"
           aria-label="Toggle navigation menu"
         >
@@ -81,7 +82,7 @@ const Navbar = () => {
         } lg:translate-y-0 top-16 left-0 w-full lg:w-auto`}
       >
         {NAV_LINKS.map((link) => (
-          <li key={link.key} className="w-full lg:w-auto text-center lg:text-left">
+          <li key={link.href} className="w-full lg:w-auto text-center lg:text-left">
             <Link
               href={link.href}
               className="text-white hover:text-gray-500 transition-colors py-2 px-4 block"
@@ -126,3 +127,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+// ...existing code...
