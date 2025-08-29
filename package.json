@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NEXT_FORCE_WASM=1 next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -16,12 +16,14 @@
     "framer-motion": "^11.11.10",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
+    "mongoose": "^8.18.0",
     "next": "^15.1.6",
     "next-auth": "^4.24.11",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@next/swc-darwin-arm64": "^15.5.0",
     "@slicemachine/adapter-next": "^0.3.51",
     "@types/lodash.debounce": "^4.0.9",
     "@types/next-auth": "^3.15.0",

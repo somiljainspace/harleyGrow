@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 
-// Dummy users array (replace with a database call)
 const users = [
   { id: 1, email: "admin@example.com", password: bcrypt.hashSync("admin123", 10), role: "Admin" },
   { id: 2, email: "editor@example.com", password: bcrypt.hashSync("editor123", 10), role: "Editor" },

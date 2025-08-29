@@ -82,6 +82,6 @@ export const SOCIALS = {
     { href: 'https://facebook.com', label: 'Facebook', icon: '/facebook.svg' },
     { href: 'https://instagram.com', label: 'Instagram', icon: '/instagram.svg' },
     { href: 'https://twitter.com', label: 'Twitter', icon: '/twitter.svg' },
-    { href: 'https://linkedin.com', label: 'LinkedIn', icon: '/linkedin.svg' },
+    { href: 'https://www.linkedin.com/company/harleysoftware/posts/?feedView=all', label: 'LinkedIn', icon: 'images/linkedin.svg' },
   ],
 };

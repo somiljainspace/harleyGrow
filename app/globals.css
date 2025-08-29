@@ -8,7 +8,7 @@
   --foreground: #000000; /* Black text for contrast */
   --navbar-bg: #1a1a1a; /* Darker navbar background */
   --navbar-text: #e0e0e0; /* Light gray text for navbar */
-  --button-bg: #004d00; /* Dark green for button */
+  --button-bg: #118e11; /* Dark green for button */
   --button-bg-hover: #006600; /* Slightly lighter green on hover */
   --teal: #00cccc; /* Teal color */
   --cyan: #00d4ff; /* Cyan color */
@@ -61,7 +61,7 @@ body {
 
 /* Button Styles */
 .button {
-  @apply flex items-center justify-center gap-2 rounded-full transition-all duration-200 ease-in-out;
+  @apply flex items-center justify-center gap-2  transition-all duration-200 ease-in-out ;
 }
 
 .button-primary {
