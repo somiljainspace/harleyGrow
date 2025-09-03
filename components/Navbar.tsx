@@ -1,4 +1,3 @@
-// ...existing code...
 "use client";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,8 +9,11 @@ import Button from "./Button";
 import { useState, useEffect, useCallback } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 
-// Type-safe debounce implementation
-const debounce = <T extends (...args: unknown[]) => void>(func: T, delay: number): (...args: Parameters<T>) => void => {
+// Type-safe debounce utility
+const debounce = <T extends (...args: unknown[]) => void>(
+  func: T,
+  delay: number
+): ((...args: Parameters<T>) => void) => {
   let timer: NodeJS.Timeout;
   return (...args: Parameters<T>) => {
     clearTimeout(timer);
@@ -25,11 +27,9 @@ const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  const toggleMenu = () => {
-    setIsOpen((prev) => !prev);
-  };
+  const toggleMenu = () => setIsOpen((prev) => !prev);
 
-  // Memoized handleScroll function to avoid unnecessary re-renders
+  // Scroll hide/show navbar
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
     if (currentScrollY > lastScrollY && currentScrollY > 50) {
@@ -52,6 +52,7 @@ const Navbar = () => {
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
+      {/* Logo */}
       <Link href="/">
         <Image
           src="/images/HarleyGrow.png"
@@ -59,10 +60,11 @@ const Navbar = () => {
           className="logo"
           width={100}
           height={50}
-          priority={true}
+          priority
         />
       </Link>
 
+      {/* Mobile menu button */}
       <div className="lg:hidden">
         <button
           onClick={toggleMenu}
@@ -71,10 +73,11 @@ const Navbar = () => {
           aria-controls="mobile-menu"
           aria-label="Toggle navigation menu"
         >
-          <FontAwesomeIcon icon={faBars} size="lg" />
+          <FontAwesomeIcon icon={faBars} size="lg" className="text-white" />
         </button>
       </div>
 
+      {/* Navigation links */}
       <ul
         id="mobile-menu"
         className={`lg:flex lg:flex-row absolute lg:static bg-black lg:bg-transparent transition-transform duration-300 ease-in-out lg:gap-8 ${
@@ -82,7 +85,10 @@ const Navbar = () => {
         } lg:translate-y-0 top-16 left-0 w-full lg:w-auto`}
       >
         {NAV_LINKS.map((link) => (
-          <li key={link.href} className="w-full lg:w-auto text-center lg:text-left">
+          <li
+            key={link.href}
+            className="w-full lg:w-auto text-center lg:text-left"
+          >
             <Link
               href={link.href}
               className="text-white hover:text-gray-500 transition-colors py-2 px-4 block"
@@ -91,6 +97,8 @@ const Navbar = () => {
             </Link>
           </li>
         ))}
+
+        {/* Dashboard for logged-in users */}
         {session && (
           <li className="w-full lg:w-auto text-center lg:text-left">
             <Link
@@ -103,6 +111,7 @@ const Navbar = () => {
         )}
       </ul>
 
+      {/* Auth button (desktop only) */}
       <div className="hidden lg:flex lg:items-center">
         {session ? (
           <Button
@@ -127,4 +136,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-// ...existing code...
