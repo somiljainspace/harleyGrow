@@ -1,31 +1,95 @@
-import { NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
-import dbConnect from "@/lib/mongodb";
-import User from "@/models/User";
+"use client";
 
-export async function POST(req: Request) {
-  try {
-    const { name, email, password } = await req.json();
+import { useState } from "react";
+
+export default function SignupPage() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  interface SignupFormData {
+    name: string;
+    email: string;
+    password: string;
+  }
+
+  interface SignupResponse {
+    message?: string;
+    error?: string;
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
 
     if (!name || !email || !password) {
-      return NextResponse.json({ error: "All fields are required" }, { status: 400 });
+      setError("All fields are required");
+      return;
     }
 
-    await dbConnect();
+    try {
+      const res: Response = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password } as SignupFormData),
+      });
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return NextResponse.json({ error: "User already exists" }, { status: 400 });
+      const data: SignupResponse = await res.json();
+
+      if (res.status === 201) {
+        setSuccess("User created successfully");
+        setName("");
+        setEmail("");
+        setPassword("");
+      } else {
+        setError(data.error ?? "Unknown error");
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      setError("Internal Server Error");
     }
+  };
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newUser = new User({ name, email, password: hashedPassword });
-    await newUser.save();
-
-    return NextResponse.json({ message: "User created successfully" }, { status: 201 });
-  } catch (error) {
-    console.error("Signup error:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
-  }
+  return (
+    <div>
+      <h1>Signup</h1>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Name</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {success && <p style={{ color: "green" }}>{success}</p>}
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+  );
 }

@@ -4,7 +4,6 @@ import localFont from "next/font/local";
 import Footer from "@/components/footer";
 import SessionWrapper from "../components/SessionWrapper";
 import { ReactNode } from "react";
-import { SessionProvider } from "next-auth/react";
 
 const workSans = localFont({
   src: [

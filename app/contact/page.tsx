@@ -1,6 +1,4 @@
 "use client";
-import { useState } from "react";
-
 export default function ContactUs() {
   return (
     <div className="min-h-screen bg-gray-100 py-10 px-6">
@@ -50,7 +48,6 @@ export default function ContactUs() {
               </label>
               <textarea
                 id="message"
-                rows="4"
                 placeholder="Write your message here"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               ></textarea>
