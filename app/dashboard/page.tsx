@@ -24,9 +24,6 @@ export default function Dashboard() {
   // If the user is logged in, display the dashboard
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold">Welcome to your Dashboard</h1>
-      <p className="mt-2">Hello, {session.user?.name || "User"}!</p>
-      <p className="mt-1">Email: {session.user?.email}</p>
       <SensorData />
       <AIPredictions />
     </div>

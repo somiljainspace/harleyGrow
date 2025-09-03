@@ -79,9 +79,7 @@ export const FOOTER_CONTACT_INFO = {
 export const SOCIALS = {
   title: 'Follow Us',
   links: [
-    { href: 'https://facebook.com', label: 'Facebook', icon: '/facebook.svg' },
-    { href: 'https://instagram.com', label: 'Instagram', icon: '/instagram.svg' },
-    { href: 'https://twitter.com', label: 'Twitter', icon: '/twitter.svg' },
-    { href: 'https://www.linkedin.com/company/harleysoftware/posts/?feedView=all', label: 'LinkedIn', icon: 'images/linkedin.svg' },
+
+    { href: 'https://www.linkedin.com/company/harleysoftware/posts/?feedView=all', label: 'LinkedIn', icon: '/images/linkedin.png' },
   ],
 };

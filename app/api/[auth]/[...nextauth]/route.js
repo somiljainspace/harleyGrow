@@ -1,15 +1,10 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs"; // Use bcryptjs for compatibility
+import dbConnect from "@/lib/mongodb";
+import User from "@/models/User";
 
-const users = [
-  { id: 1, email: "admin@example.com", password: bcrypt.hashSync("admin123", 10), role: "Admin" },
-  { id: 2, email: "editor@example.com", password: bcrypt.hashSync("editor123", 10), role: "Editor" },
-  { id: 3, email: "viewer@example.com", password: bcrypt.hashSync("viewer123", 10), role: "Viewer" },
-];
-
-// NextAuth configuration
-const authOptions = {
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -18,30 +13,29 @@ const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const user = users.find((u) => u.email === credentials.email);
-        if (user && bcrypt.compareSync(credentials.password, user.password)) {
-          return { id: user.id, email: user.email, role: user.role };
+        await dbConnect();
+
+        const user = await User.findOne({ email: credentials.email });
+        if (!user) {
+          throw new Error("Invalid email");
         }
-        return null; // Return null if user is not found
+
+        const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+        if (!isPasswordValid) {
+          throw new Error("Invalid password");
+        }
+
+        return { id: user._id.toString(), name: user.name, email: user.email };
       },
     }),
   ],
-  callbacks: {
-    async session({ session, token }) {
-      session.user = token.user;
-      return session;
-    },
-    async jwt({ token, user }) {
-      if (user) token.user = user;
-      return token;
-    },
+  pages: {
+    signIn: "/login",
   },
-  secret: process.env.NEXTAUTH_SECRET || "your-secret-key",
   session: {
     strategy: "jwt",
   },
-};
+  secret: process.env.NEXTAUTH_SECRET,
+});
 
-// Use the new route handler export format for Next.js 13
-export const GET = (req, res) => NextAuth(req, res, authOptions);
-export const POST = (req, res) => NextAuth(req, res, authOptions);
+export { handler as GET, handler as POST };

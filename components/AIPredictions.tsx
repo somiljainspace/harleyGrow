@@ -1,5 +1,5 @@
 import React from 'react';
-
+//Agentic AI Creation here 
 const AIPredictions = () => {
   // Replace with actual AI prediction fetching logic
   const predictions = [
