@@ -51,11 +51,13 @@ const Careers: React.FC = () => {
             >
               <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
               <p className="text-gray-600 mt-3">{job.description}</p>
-              <Link href={`/careers/${job.id}`}>
-                <a className="mt-6 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
-                  Apply Now
-                </a>
-              </Link>
+              <Link
+  href={`/careers/${job.id}`}
+  className="mt-6 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+>
+  Apply Now
+</Link>
+
             </div>
           ))}
         </div>
