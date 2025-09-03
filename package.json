@@ -30,6 +30,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.13.0",
     "@slicemachine/adapter-next": "^0.3.51",
     "@types/bcrypt": "^6.0.0",
     "@types/lodash.debounce": "^4.0.9",
