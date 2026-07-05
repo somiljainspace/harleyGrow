@@ -12,20 +12,25 @@ const handler = NextAuth({
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
-        await dbConnect();
-
-        const user = await User.findOne({ email: credentials.email });
-        if (!user) {
-          throw new Error("Invalid email");
+async authorize(credentials) {
+        // Demo hardcoded user (local bypass - remove for prod)
+        if (credentials?.email === 'demo@demo.com' && credentials?.password === 'demo') {
+          return { id: 'demo', name: 'Demo Editor', email: 'demo@demo.com' };
         }
 
-        const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
-        if (!isPasswordValid) {
-          throw new Error("Invalid password");
-        }
+        // DB fallback
+        try {
+          await dbConnect();
+          const user = await User.findOne({ email: credentials.email });
+          if (!user) return null;
 
-        return { id: user._id.toString(), name: user.name, email: user.email };
+          const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+          if (!isPasswordValid) return null;
+
+          return { id: user._id.toString(), name: user.name, email: user.email };
+        } catch {
+          return null;
+        }
       },
     }),
   ],

@@ -3,6 +3,7 @@
 import { useSession, signIn } from "next-auth/react";
 import SensorData from "../../components/SensorData";
 import AIPredictions from "../../components/AIPredictions";
+import PlantDiseaseDetector from "../../components/PlantDiseaseDetector";
 
 export default function Dashboard() {
   const { data: session } = useSession();
@@ -23,9 +24,10 @@ export default function Dashboard() {
 
   // If the user is logged in, display the dashboard
   return (
-    <div className="p-8">
+    <div className="p-8 space-y-12">
       <SensorData />
       <AIPredictions />
+      <PlantDiseaseDetector />
     </div>
   );
 }
